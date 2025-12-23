@@ -1,12 +1,39 @@
-
-import React from 'react';
-import { Camera, ExternalLink, Layout, Calendar, Clock, Smartphone } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Camera, ExternalLink, Clock, RefreshCw } from 'lucide-react';
+import { EthioDateResponse, EthioTimeResponse } from '../types';
 
 interface DemoProps {
   isDarkMode: boolean;
 }
 
 export const Demo: React.FC<DemoProps> = ({ isDarkMode }) => {
+  const [dateData, setDateData] = useState<EthioDateResponse | null>(null);
+  const [timeData, setTimeData] = useState<EthioTimeResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const [dateRes, timeRes] = await Promise.all([
+        fetch('https://api.ethioall.com/date/api').then(res => res.json()),
+        fetch('https://api.ethioall.com/time/api').then(res => res.json())
+      ]);
+      setDateData(dateRes);
+      setTimeData(timeRes);
+    } catch (error) {
+      console.error('Error fetching EthioTime data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    // Refresh time every minute
+    const interval = setInterval(fetchData, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   const screenshots = [
     { url: "https://coffe.ethioall.com/wp-content/uploads/2025/12/screenshot-1.png", title: "Shortcode Generator", desc: "Easily generate custom calendar components." },
     { url: "https://coffe.ethioall.com/wp-content/uploads/2025/12/screenshot-2.png", title: "Live Frontend Clock", desc: "Native Ethiopian time display for your users." },
@@ -18,28 +45,45 @@ export const Demo: React.FC<DemoProps> = ({ isDarkMode }) => {
     <section id="showcase" className={`py-24 transition-colors duration-300 ${isDarkMode ? 'bg-slate-900/50' : 'bg-slate-100/50'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">Product Showcase</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">Live API Showcase</h2>
           <p className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} max-w-2xl mx-auto`}>
-            The plugin is currently under review by WordPress.org. Here is a preview of the interface and frontend outputs.
+            Our plugin utilizes the same high-performance engines powering these official API endpoints.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-8">
-            <div className={`p-8 rounded-3xl border transition-all ${isDarkMode ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'} shadow-2xl relative overflow-hidden`}>
-              <div className="absolute top-0 right-0 p-4">
-                 <span className="bg-yellow-500/10 text-yellow-500 text-[10px] font-bold px-2 py-1 rounded">OUTPUT PREVIEW</span>
+            <div className={`p-8 rounded-3xl border transition-all ${isDarkMode ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'} shadow-2xl relative overflow-hidden group`}>
+              <div className="absolute top-0 right-0 p-4 flex items-center gap-2">
+                 <button onClick={fetchData} className="p-2 rounded-full hover:bg-slate-800 transition-colors text-slate-500">
+                    <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+                 </button>
+                 <span className="bg-green-500/10 text-green-500 text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1">
+                    <div className="w-1 h-1 rounded-full bg-green-500 animate-pulse"></div> LIVE DATA
+                 </span>
               </div>
               
               <div className="space-y-6">
                 <div className="flex flex-col">
-                  <span className="text-4xl md:text-6xl font-black font-ethiopic text-yellow-500">
-                    ታኅሣሥ 5, 2018
-                  </span>
-                  {/* Updated line as requested: Day Date/Month/Year */}
-                  <span className="text-xl md:text-2xl font-ethiopic text-slate-500 mt-2">
-                    እሑድ 5/4/2018
-                  </span>
+                  {loading && !dateData ? (
+                    <div className="space-y-4">
+                      <div className="h-12 bg-slate-800/50 rounded-lg w-3/4 animate-pulse"></div>
+                      <div className="h-8 bg-slate-800/50 rounded-lg w-1/2 animate-pulse"></div>
+                    </div>
+                  ) : (
+                    <>
+                      <span className="text-4xl md:text-6xl font-black font-ethiopic text-yellow-500">
+                        {dateData?.month_amharic} {dateData?.date}, {dateData?.year}
+                      </span>
+                      <span className="text-xl md:text-2xl font-ethiopic text-slate-500 mt-2">
+                        {dateData?.day_amharic} {dateData?.numeric_date}
+                      </span>
+                      <div className="mt-4 flex items-center gap-3 text-lg font-bold text-red-500 font-ethiopic">
+                        <Clock size={20} />
+                        {timeData?.ethiopian_time.hour}:{timeData?.ethiopian_time.minute?.toString().padStart(2, '0')} {timeData?.ethiopian_time.period_amharic}
+                      </div>
+                    </>
+                  )}
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-slate-800/20">
@@ -48,10 +92,8 @@ export const Demo: React.FC<DemoProps> = ({ isDarkMode }) => {
                     <code className="text-xs font-bold text-yellow-500">[et-dt-shortcode slug="date"]</code>
                   </div>
                   <div className={`p-4 rounded-xl ${isDarkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
-                    <span className="text-slate-500 block mb-1 uppercase tracking-widest text-[10px]">Real-time Status</span>
-                    <span className="text-xs font-bold text-green-500 flex items-center gap-1">
-                      <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div> Localized Correctly
-                    </span>
+                    <span className="text-slate-500 block mb-1 uppercase tracking-widest text-[10px]">Timezone</span>
+                    <span className="text-xs font-bold text-blue-500">Africa/Addis_Ababa</span>
                   </div>
                 </div>
               </div>
