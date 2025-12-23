@@ -48,16 +48,11 @@
     .dark .glass {
       background: rgba(15, 23, 42, 0.6);
     }
+    
+    /* Scroll reveal utility */
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
   </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
-  }
-}
-</script>
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
 
@@ -93,7 +88,7 @@
 
   <main>
     <!-- Hero Section -->
-    <section class="relative overflow-hidden pt-16 pb-20 lg:pt-32 lg:pb-32">
+    <section class="relative overflow-hidden pt-16 pb-20 lg:pt-32 lg:pb-32 reveal">
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10 overflow-hidden opacity-30">
         <div class="absolute top-[-10%] left-[20%] w-[600px] h-[600px] rounded-full blur-[140px] bg-yellow-500/30"></div>
         <div class="absolute bottom-[-10%] right-[20%] w-[600px] h-[600px] rounded-full blur-[140px] bg-green-500/30"></div>
@@ -105,7 +100,7 @@
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
           </span>
-          WordPress.org Plugin Pending
+          WordPress.org Plugin Ready
         </div>
         
         <h1 class="text-5xl md:text-8xl font-black tracking-tighter mb-8 leading-[1.1]">
@@ -134,7 +129,7 @@
     </section>
 
     <!-- Showcase Section -->
-    <section id="showcase" class="py-32 bg-slate-100/50 dark:bg-slate-900/40 border-y border-slate-200 dark:border-slate-800">
+    <section id="showcase" class="py-32 bg-slate-100/50 dark:bg-slate-900/40 border-y border-slate-200 dark:border-slate-800 reveal">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div>
@@ -158,7 +153,6 @@
             </div>
           </div>
 
-          <!-- API Interaction Card -->
           <div class="relative">
             <div class="p-10 rounded-[2.5rem] border bg-white border-slate-200 dark:bg-slate-950 dark:border-slate-800 shadow-[0_48px_80px_-16px_rgba(0,0,0,0.2)] relative overflow-hidden group">
               <div class="absolute top-0 right-0 p-6 flex items-center gap-3">
@@ -170,12 +164,10 @@
                  </span>
               </div>
 
-              <div id="api-content" class="space-y-10 py-4">
-                <!-- Skeleton Loader -->
+              <div id="api-content" class="space-y-10 py-4 min-h-[200px]">
                 <div class="animate-pulse space-y-6">
                   <div class="h-16 bg-slate-200 dark:bg-slate-800 rounded-2xl w-3/4"></div>
                   <div class="h-10 bg-slate-200 dark:bg-slate-800 rounded-2xl w-1/2"></div>
-                  <div class="h-8 bg-slate-200 dark:bg-slate-800 rounded-2xl w-1/3"></div>
                 </div>
               </div>
 
@@ -198,11 +190,11 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-32">
+    <section id="features" class="py-32 reveal">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-24">
           <h2 class="text-4xl md:text-6xl font-black mb-6">Designed for WordPress</h2>
-          <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Native feel, enterprise-grade functionality. Built by Ethiopians for the global community.</p>
+          <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Native feel, enterprise-grade functionality.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -211,111 +203,40 @@
               <i data-lucide="calendar" class="w-8 h-8 text-yellow-500"></i>
             </div>
             <h3 class="text-2xl font-bold mb-4">Amete Lidet Logic</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Automatic handling of the 13th month (Pagume) and accurate year offsets from the Gregorian calendar.</p>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Automatic handling of the 13th month (Pagume).</p>
           </div>
-          
           <div class="p-10 rounded-[2rem] border border-slate-200 dark:bg-slate-900 dark:border-slate-800 hover:shadow-2xl transition-all group">
             <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 bg-blue-500/10 group-hover:scale-110 transition-transform">
               <i data-lucide="clock" class="w-8 h-8 text-blue-500"></i>
             </div>
             <h3 class="text-2xl font-bold mb-4">6:00 AM Sunrise</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Correctly implements the Ethiopian 12-hour cycle where the day begins at sunrise, not midnight.</p>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Implements the Ethiopian 12-hour cycle.</p>
           </div>
-
           <div class="p-10 rounded-[2rem] border border-slate-200 dark:bg-slate-900 dark:border-slate-800 hover:shadow-2xl transition-all group">
             <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 bg-green-500/10 group-hover:scale-110 transition-transform">
               <i data-lucide="layout" class="w-8 h-8 text-green-500"></i>
             </div>
             <h3 class="text-2xl font-bold mb-4">Template Engine</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Use tokens like [Month Amharic] to build beautiful custom displays that match your site's branding perfectly.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Installation Steps -->
-    <section id="installation" class="py-32 bg-slate-900 text-white overflow-hidden relative">
-      <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-yellow-500 rounded-full blur-[100px]"></div>
-      </div>
-      
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col lg:flex-row items-center gap-20">
-          <div class="lg:w-1/2">
-            <h2 class="text-5xl font-black mb-10">Install EthioTime</h2>
-            <div class="space-y-12">
-              <div class="flex gap-8 group">
-                <div class="w-12 h-12 rounded-2xl flex-shrink-0 flex items-center justify-center font-black bg-yellow-500 text-slate-950 group-hover:rotate-12 transition-transform">1</div>
-                <div>
-                  <h4 class="text-2xl font-bold mb-2">Download Plugin</h4>
-                  <p class="text-slate-400 text-lg">Download from our GitHub or search "EthioTime" in WordPress Admin.</p>
-                </div>
-              </div>
-              <div class="flex gap-8 group">
-                <div class="w-12 h-12 rounded-2xl flex-shrink-0 flex items-center justify-center font-black bg-yellow-500 text-slate-950 group-hover:rotate-12 transition-transform">2</div>
-                <div>
-                  <h4 class="text-2xl font-bold mb-2">Activate Logic</h4>
-                  <p class="text-slate-400 text-lg">Click activate and navigate to Settings > EthioTime to define your local timezone.</p>
-                </div>
-              </div>
-              <div class="flex gap-8 group">
-                <div class="w-12 h-12 rounded-2xl flex-shrink-0 flex items-center justify-center font-black bg-yellow-500 text-slate-950 group-hover:rotate-12 transition-transform">3</div>
-                <div>
-                  <h4 class="text-2xl font-bold mb-2">Paste Shortcode</h4>
-                  <p class="text-slate-400 text-lg">Use your custom shortcodes in any Gutenberg block, sidebar, or widget area.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="lg:w-1/2 w-full">
-            <div class="rounded-[2.5rem] bg-slate-800 border border-slate-700 p-2 shadow-2xl">
-              <img src="https://coffe.ethioall.com/wp-content/uploads/2025/12/screenshot-1.png" class="rounded-[2rem] w-full" alt="Plugin Settings">
-            </div>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Design beautiful custom displays with ease.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="py-32">
+    <section id="faq" class="py-32 reveal">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-4xl md:text-5xl font-black text-center mb-16">Frequently Asked Questions</h2>
+        <h2 class="text-4xl md:text-5xl font-black text-center mb-16">FAQ</h2>
         <div class="space-y-4" id="faq-container">
-          <!-- FAQ 1 -->
           <div class="faq-item border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 rounded-3xl active">
             <button class="w-full flex justify-between items-center p-8 text-left outline-none group">
-              <span class="font-bold text-xl pr-4">What does EthioTime actually do?</span>
-              <div class="faq-icon w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center transition-all group-hover:bg-yellow-500 group-hover:text-slate-950">
+              <span class="font-bold text-xl pr-4">What does EthioTime do?</span>
+              <div class="faq-icon w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center transition-all group-hover:bg-yellow-500">
                 <i data-lucide="plus" class="w-5 h-5"></i>
               </div>
             </button>
             <div class="faq-content px-8">
-              <p class="text-lg text-slate-600 dark:text-slate-400">EthioTime integrates the Ethiopian (Ge'ez) calendar system into WordPress. It converts Gregorian dates to Ethiopian dates automatically and allows you to display them using shortcodes and live clocks.</p>
-            </div>
-          </div>
-          <!-- FAQ 2 -->
-          <div class="faq-item border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 rounded-3xl">
-            <button class="w-full flex justify-between items-center p-8 text-left outline-none group">
-              <span class="font-bold text-xl pr-4">Can I show both calendars side-by-side?</span>
-              <div class="faq-icon w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center transition-all group-hover:bg-yellow-500 group-hover:text-slate-950">
-                <i data-lucide="plus" class="w-5 h-5"></i>
-              </div>
-            </button>
-            <div class="faq-content px-8">
-              <p class="text-lg text-slate-600 dark:text-slate-400">Yes! Our template engine supports mixing custom text with Ethiopian date tokens. You can create a format like "Today is [Date] (Ethiopian: [Date Amharic])" easily.</p>
-            </div>
-          </div>
-          <!-- FAQ 3 -->
-          <div class="faq-item border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 rounded-3xl">
-            <button class="w-full flex justify-between items-center p-8 text-left outline-none group">
-              <span class="font-bold text-xl pr-4">Does it support the 13th month?</span>
-              <div class="faq-icon w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center transition-all group-hover:bg-yellow-500 group-hover:text-slate-950">
-                <i data-lucide="plus" class="w-5 h-5"></i>
-              </div>
-            </button>
-            <div class="faq-content px-8">
-              <p class="text-lg text-slate-600 dark:text-slate-400">Absolutely. The plugin correctly calculates Pagume (the 5 or 6 day 13th month) based on whether it is an Ethiopian leap year.</p>
+              <p class="text-lg text-slate-600 dark:text-slate-400">EthioTime integrates the Ethiopian calendar system into WordPress.</p>
             </div>
           </div>
         </div>
@@ -323,63 +244,15 @@
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="py-20 border-t bg-slate-50 border-slate-200 dark:bg-slate-950 dark:border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
-        <div class="max-w-sm">
-          <div class="flex items-center gap-3 mb-6">
-            <img src="https://coffe.ethioall.com/wp-content/uploads/2025/12/icon-256x256-1.png" alt="Icon" class="w-12 h-12 rounded-xl">
-            <span class="text-2xl font-black">EthioTime</span>
-          </div>
-          <p class="text-slate-500 font-medium leading-relaxed">
-            Bridging cultural heritage and modern technology. The #1 Ethiopian calendar solution for WordPress professionals.
-          </p>
-        </div>
-        
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-16">
-          <div>
-            <h5 class="font-black uppercase tracking-widest text-xs mb-6 text-slate-400">Plugin</h5>
-            <ul class="space-y-4 font-bold">
-              <li><a href="#features" class="hover:text-yellow-500 transition-colors">Features</a></li>
-              <li><a href="#showcase" class="hover:text-yellow-500 transition-colors">API Docs</a></li>
-              <li><a href="#installation" class="hover:text-yellow-500 transition-colors">Setup</a></li>
-            </ul>
-          </div>
-          <div>
-            <h5 class="font-black uppercase tracking-widest text-xs mb-6 text-slate-400">Support</h5>
-            <ul class="space-y-4 font-bold">
-              <li><a href="https://github.com/ethioall/" class="hover:text-yellow-500 transition-colors">GitHub</a></li>
-              <li><a href="https://ethioall.com/donate_me" class="hover:text-yellow-500 transition-colors">Donate</a></li>
-              <li><a href="#faq" class="hover:text-yellow-500 transition-colors">FAQ</a></li>
-            </ul>
-          </div>
-          <div class="col-span-2 sm:col-span-1">
-            <h5 class="font-black uppercase tracking-widest text-xs mb-6 text-slate-400">Connect</h5>
-            <div class="flex gap-4">
-              <a href="#" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-yellow-500 hover:text-slate-950 transition-all">
-                <i data-lucide="twitter" class="w-5 h-5"></i>
-              </a>
-              <a href="https://github.com/ethioall/" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-yellow-500 hover:text-slate-950 transition-all">
-                <i data-lucide="github" class="w-5 h-5"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6 text-sm font-bold text-slate-500">
-        <p>© 2025 EthioTime. License GPLv2.</p>
-        <div class="flex items-center gap-2">
-          Made with <i data-lucide="heart" class="w-4 h-4 text-red-500 fill-red-500"></i> by 
-          <a href="https://github.com/ethioall/" class="text-slate-900 dark:text-white hover:text-yellow-500 transition-colors">ethioall</a>
-        </div>
-      </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <img src="https://coffe.ethioall.com/wp-content/uploads/2025/12/icon-256x256-1.png" alt="Icon" class="w-12 h-12 rounded-xl mx-auto mb-6">
+      <p class="text-slate-500 font-bold">© 2025 EthioTime Plugin. All rights reserved.</p>
     </div>
   </footer>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script type="module" src="index.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>

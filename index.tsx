@@ -1,1 +1,0 @@
-// Deprecated: Moving to index.js for plain HTML/JS architecture.
